@@ -1,0 +1,18 @@
+{
+  "eslint.packageManager": "yarn",
+  "eslint.options": {
+    "configFile": "./.eslintrc.js"
+  },
+  "editor.suggestSelection": "first",
+  "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+  "eslint.autoFixOnSave": true,
+  "eslint.validate": [
+    "javascript",
+    {
+      "language": "typescript",
+      "autoFix": true
+    },
+  ],
+  "editor.formatOnSave": true,
+  "eslint.alwaysShowStatus": true,
+}
