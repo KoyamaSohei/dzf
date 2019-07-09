@@ -13,7 +13,8 @@
     "lib"
   ],
   "scripts": {
-    "build": "rollup -c rollup.config.js && typedoc --out docs --target es6 --theme minimal --mode file src"
+    "build": "rollup -c rollup.config.js && typedoc --out docs --target es6 --theme minimal --mode file src",
+    "test": "jest --coverage --silent=false"
   },
   "devDependencies": {
     "@types/jest": "^24.0.15",
