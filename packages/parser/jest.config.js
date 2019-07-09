@@ -1,13 +1,13 @@
 module.exports = {
   'roots': [
-    'src'
+    './'
   ],
   'transform': {
     '^.+\\.ts$': 'ts-jest'
   },
   'globals': {
     'ts-jest': {
-      'tsConfig': 'src/__tests__/tsconfig.json'
+      'tsConfig': '__tests__/tsconfig.json'
     }
   },
   'preset': 'ts-jest',
