@@ -5,3 +5,4 @@ node_js:
 before_install:
   - npm i -g npm
   - npm i -g lerna
+  - npm i -g yarn
