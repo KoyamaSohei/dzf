@@ -2,6 +2,9 @@
 --------
 dns zonefile parser
 
+[![Build Status](https://travis-ci.org/KoyamaSohei/dzf.svg?branch=master)](https://travis-ci.org/KoyamaSohei/dzf) 
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+
 ## Install
 
 ```bash
