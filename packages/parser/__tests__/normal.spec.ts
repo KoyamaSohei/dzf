@@ -111,5 +111,41 @@ describe('normal scenario', () => {
     })
   })
 
+  describe('multiple lines', () => {
+    it('example', () => {
+      const text = `
+$TTL  3600
+@ IN  SOA ns.example1.com. root.example1.com. (
+  20190101  ; serial
+  3600 ; refresh
+  3600 ; retry
+  1209600 ; expire
+  3600 ; negative cache ttl
+)
+
+; NS records
+
+@  IN  NS  ns.example1.com.
+@  IN  NS  ns2.example1.com. 
+
+; A records
+
+localhost.example1.com. IN  A 127.0.0.1
+ns.example1.com.  IN  A 192.1.2.2
+ns2.example1.com. IN  A 192.1.2.3
+bug.example1.com. IN  A 192.249.249.1
+dog IN  A 192.249.249.2
+cat IN  A 192.249.249.3
+shark IN  A 192.249.249.4
+
+; CNAME records
+
+foo.example1.com.  IN  CNAME example2.com.
+bar.example1.com.  IN  CNAME foo.example2.com.
+      `;
+      const p = parseZone(text, 'example1.com.');
+      expect(p).toMatchSnapshot();
+    })
+  })
 
 })
