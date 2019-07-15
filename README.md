@@ -1,4 +1,4 @@
-dzf
+dzfu
 -------
 
 dns zone file utility

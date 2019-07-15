@@ -1,20 +1,20 @@
-@dzf/parser
+@dzfu/parser
 --------
 dns zonefile parser
 
-[![Build Status](https://travis-ci.org/KoyamaSohei/dzf.svg?branch=master)](https://travis-ci.org/KoyamaSohei/dzf) 
+[![Build Status](https://travis-ci.org/KoyamaSohei/dzfu.svg?branch=master)](https://travis-ci.org/KoyamaSohei/dzfu) 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
 ## Install
 
 ```bash
-yarn add @dzf/parser
+yarn add @dzfu/parser
 ```
 
 ## Usage
 
 ```ts
-import { parseZone, RR } from '@dzf/parser';
+import { parseZone, RR } from '@dzfu/parser';
 
 const text = `
 $TTL  3600
