@@ -1,5 +1,16 @@
 {
   "name": "@dzfu/parser",
+  "description": "dns zone file parser",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KoyamaSohei/dzfu.git"
+  },
+  "keywords": [
+    "dns",
+    "zonefine",
+    "parser"
+  ],
+  "types": "lib/index.d.ts",
   "version": "0.0.1",
   "author": "KoyamaSohei <koyamaso0309@gmail.com>",
   "license": "MIT",
