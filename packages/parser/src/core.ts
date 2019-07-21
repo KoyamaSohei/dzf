@@ -310,7 +310,7 @@ export class ZoneParser {
             throw new SyntaxError(`${l.token} is not domain at ${l.line}:${l.column}`);
           }
           const rr: CNAME = {
-            hdr,
+            hdr: hdr as RrHeader<Rrtype.CNAME>,
             target
           }
           return rr;
@@ -332,7 +332,7 @@ export class ZoneParser {
           }
           const os = lx.token;
           const rr: HINFO = {
-            hdr,
+            hdr: hdr as RrHeader<Rrtype.HINFO>,
             cpu,
             os
           }
@@ -361,7 +361,7 @@ export class ZoneParser {
             throw new SyntaxError(`${m.token} is not domain at ${m.line}:${m.column}`);
           }
           const rr: MX = {
-            hdr,
+            hdr: hdr as RrHeader<Rrtype.MX>,
             preference,
             mx,
           }
@@ -378,7 +378,7 @@ export class ZoneParser {
             throw new SyntaxError(`${l.token} is not domain at ${l.line}:${l.column}`);
           }
           const rr: NS = {
-            hdr,
+            hdr: hdr as RrHeader<Rrtype.NS>,
             ns
           }
           return rr;
@@ -394,7 +394,7 @@ export class ZoneParser {
             throw new SyntaxError(`${l.token} is not domain at ${l.line}:${l.column}`);
           }
           const rr: PTR = {
-            hdr,
+            hdr: hdr as RrHeader<Rrtype.PTR>,
             ptr
           }
           return rr;
@@ -421,7 +421,7 @@ export class ZoneParser {
 
 
           const rr: SOA = {
-            hdr,
+            hdr: hdr as RrHeader<Rrtype.SOA>,
             ns,
             mbox,
             serial: 0,
@@ -495,7 +495,7 @@ export class ZoneParser {
             throw new SyntaxError('arguments is too many');
           }
           const rr: TXT = {
-            hdr,
+            hdr: hdr as RrHeader<Rrtype.TXT>,
             txt: txt[0],
           }
           return rr;
@@ -509,7 +509,7 @@ export class ZoneParser {
           }
           const a = l.token;
           const rr: A = {
-            hdr,
+            hdr: hdr as RrHeader<Rrtype.A>,
             a,
           }
           return rr;
