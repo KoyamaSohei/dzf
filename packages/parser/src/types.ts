@@ -20,58 +20,49 @@ export enum Class {
 
 export interface TTLState {
   ttl: number;
-  isByDirective: boolean
+  isByDirective: boolean;
 }
 
-export interface RrHeader {
+export interface RrHeader<T = Rrtype> {
   name: string;
-  rrtype: Rrtype;
+  rrtype: T;
   class: Class;
   ttl: number;
 }
 
-export type RR =
-  CNAME |
-  HINFO |
-  MX |
-  NS |
-  PTR |
-  SOA |
-  TXT |
-  A;
+export type RR = CNAME | HINFO | MX | NS | PTR | SOA | TXT | A;
 
 export interface CNAME {
-  hdr: RrHeader;
+  hdr: RrHeader<Rrtype.CNAME>;
   target: string;
 }
 
 export interface HINFO {
-  hdr: RrHeader;
+  hdr: RrHeader<Rrtype.HINFO>;
   cpu: string;
   os: string;
 }
 
 export interface MX {
-  hdr: RrHeader;
+  hdr: RrHeader<Rrtype.MX>;
   preference: number;
   mx: string;
 }
 
 export interface NS {
-  hdr: RrHeader;
+  hdr: RrHeader<Rrtype.NS>;
   ns: string;
 }
 
 export interface PTR {
-  hdr: RrHeader;
+  hdr: RrHeader<Rrtype.PTR>;
   ptr: string;
 }
 
-
 export interface SOA {
-  hdr: RrHeader;
+  hdr: RrHeader<Rrtype.SOA>;
   ns: string;
-  mbox: string
+  mbox: string;
   serial: number;
   refresh: number;
   retry: number;
@@ -80,15 +71,14 @@ export interface SOA {
 }
 
 export interface TXT {
-  hdr: RrHeader;
+  hdr: RrHeader<Rrtype.TXT>;
   txt: string;
 }
 
 export interface A {
-  hdr: RrHeader;
+  hdr: RrHeader<Rrtype.A>;
   a: string;
 }
-
 
 export interface Lex {
   token: string;
@@ -126,5 +116,5 @@ export enum Tokenize {
   zExpectDirTTLBl,
   zExpectDirTTL,
   zExpectDirOriginBl,
-  zExpectDirOrigin,
+  zExpectDirOrigin
 }
