@@ -299,221 +299,248 @@ export class ZoneParser {
   private parseRdata(hdr: RrHeader): RR | null {
     const zp = this;
     switch (hdr.rrtype) {
-      case Rrtype.CNAME:
-        {
-          const l = zp.c.next();
-          if (l.value !== Tokenize.zString) {
-            throw new SyntaxError(`expecting string but got ${l.token} at ${l.line}:${l.column}`);
-          }
-          const target = zp.toAbsoluteName(l.token, zp.origin);
-          if (target === null) {
-            throw new SyntaxError(`${l.token} is not domain at ${l.line}:${l.column}`);
-          }
-          const rr: CNAME = {
-            hdr: hdr as RrHeader<Rrtype.CNAME>,
-            target
-          }
-          return rr;
+      case Rrtype.CNAME: {
+        const l = zp.c.next();
+        if (l.value !== Tokenize.zString) {
+          throw new SyntaxError(
+            `expecting string but got ${l.token} at ${l.line}:${l.column}`
+          );
         }
-      case Rrtype.HINFO:
-        {
-          const l = zp.c.next();
-          if (l.value !== Tokenize.zString) {
-            throw new SyntaxError(`expecting string but got ${l.token} at ${l.line}:${l.column}`);
-          }
-          const cpu = l.token;
-          const b = zp.c.next();
-          if (b.value !== Tokenize.zBlank) {
-            throw new SyntaxError(`expecting blank at ${b.line}:${b.column}`);
-          }
+        const target = zp.toAbsoluteName(l.token, zp.origin);
+        if (target === null) {
+          throw new SyntaxError(
+            `${l.token} is not domain at ${l.line}:${l.column}`
+          );
+        }
+        const rr: CNAME = {
+          hdr: hdr as RrHeader<Rrtype.CNAME>,
+          target
+        };
+        return rr;
+      }
+      case Rrtype.HINFO: {
+        const l = zp.c.next();
+        if (l.value !== Tokenize.zString) {
+          throw new SyntaxError(
+            `expecting string but got ${l.token} at ${l.line}:${l.column}`
+          );
+        }
+        const cpu = l.token;
+        const b = zp.c.next();
+        if (b.value !== Tokenize.zBlank) {
+          throw new SyntaxError(`expecting blank at ${b.line}:${b.column}`);
+        }
+        const lx = zp.c.next();
+        if (lx.value !== Tokenize.zString) {
+          throw new SyntaxError(
+            `expecting os string but got ${lx.token} at ${lx.line}: ${lx.column}`
+          );
+        }
+        const os = lx.token;
+        const rr: HINFO = {
+          hdr: hdr as RrHeader<Rrtype.HINFO>,
+          cpu,
+          os
+        };
+        return rr;
+      }
+      case Rrtype.MX: {
+        const l = zp.c.next();
+        if (l.value !== Tokenize.zString) {
+          throw new SyntaxError(
+            `expecting string but got ${l.token} at ${l.line}:${l.column}`
+          );
+        }
+        const preference = parseInt(l.token);
+        if (isNaN(preference)) {
+          throw new SyntaxError(
+            `expecting mx preference,but ${l.token} is not number at ${l.line}:${l.column}`
+          );
+        }
+        const b = zp.c.next();
+        if (b.value !== Tokenize.zBlank) {
+          throw new SyntaxError(`expecting blank at ${b.line}:${b.column}`);
+        }
+        const m = zp.c.next();
+        if (m.value !== Tokenize.zString) {
+          throw new SyntaxError(
+            `expecting string but got ${m.token} at ${m.line}:${m.column}`
+          );
+        }
+        const mx = zp.toAbsoluteName(m.token, zp.origin);
+        if (mx === null) {
+          throw new SyntaxError(
+            `${m.token} is not domain at ${m.line}:${m.column}`
+          );
+        }
+        const rr: MX = {
+          hdr: hdr as RrHeader<Rrtype.MX>,
+          preference,
+          mx
+        };
+        return rr;
+      }
+      case Rrtype.NS: {
+        const l = zp.c.next();
+        if (l.value !== Tokenize.zString) {
+          throw new SyntaxError(
+            `expecting string but got ${l.token} at ${l.line}:${l.column}`
+          );
+        }
+        const ns = zp.toAbsoluteName(l.token, zp.origin);
+        if (ns === null) {
+          throw new SyntaxError(
+            `${l.token} is not domain at ${l.line}:${l.column}`
+          );
+        }
+        const rr: NS = {
+          hdr: hdr as RrHeader<Rrtype.NS>,
+          ns
+        };
+        return rr;
+      }
+      case Rrtype.PTR: {
+        const l = zp.c.next();
+        if (l.value !== Tokenize.zString) {
+          throw new SyntaxError(
+            `expecting string but got ${l.token} at ${l.line}:${l.column}`
+          );
+        }
+        const ptr = zp.toAbsoluteName(l.token, this.origin);
+        if (ptr === null) {
+          throw new SyntaxError(
+            `${l.token} is not domain at ${l.line}:${l.column}`
+          );
+        }
+        const rr: PTR = {
+          hdr: hdr as RrHeader<Rrtype.PTR>,
+          ptr
+        };
+        return rr;
+      }
+      case Rrtype.SOA: {
+        const l = zp.c.next();
+        if (l.value !== Tokenize.zString) {
+          throw new SyntaxError(
+            `expecting string but got ${l.token} at ${l.line}:${l.column}`
+          );
+        }
+        const ns = zp.toAbsoluteName(l.token, zp.origin);
+        if (ns === null) {
+          throw new SyntaxError(
+            `${l.token} is not domain at ${l.line}:${l.column}`
+          );
+        }
+        const b = zp.c.next();
+        if (b.value !== Tokenize.zBlank) {
+          throw new SyntaxError(`expecting blank at ${b.line}:${b.column}`);
+        }
+        const lx = zp.c.next();
+        const mbox = zp.toAbsoluteName(lx.token, zp.origin);
+        if (mbox === null) {
+          throw new SyntaxError(
+            `${l.token} is not domain at ${l.line}:${l.column}`
+          );
+        }
+
+        const rr: SOA = {
+          ...(hdr as RrHeader<Rrtype.SOA>),
+          ns,
+          mbox,
+          serial: 0,
+          refresh: 0,
+          retry: 0,
+          expire: 0,
+          minttl: 0
+        };
+        const b2 = zp.c.next();
+        if (b2.value !== Tokenize.zBlank) {
+          throw new SyntaxError(`expecting blank at ${b2.line}:${b2.column}`);
+        }
+        for (let i = 0; i < 5; i++) {
           const lx = zp.c.next();
-          if (lx.value !== Tokenize.zString) {
-            throw new SyntaxError(`expecting os string but got ${lx.token} at ${lx.line}: ${lx.column}`);
+          const n = parseInt(lx.token);
+          if (isNaN(n)) {
+            throw new SyntaxError(
+              `${lx.token} is not number at ${lx.line}:${lx.column}`
+            );
           }
-          const os = lx.token;
-          const rr: HINFO = {
-            hdr: hdr as RrHeader<Rrtype.HINFO>,
-            cpu,
-            os
-          }
-          return rr;
-        }
-      case Rrtype.MX:
-        {
-          const l = zp.c.next();
-          if (l.value !== Tokenize.zString) {
-            throw new SyntaxError(`expecting string but got ${l.token} at ${l.line}:${l.column}`);
-          }
-          const preference = parseInt(l.token);
-          if (isNaN(preference)) {
-            throw new SyntaxError(`expecting mx preference,but ${l.token} is not number at ${l.line}:${l.column}`);
-          }
-          const b = zp.c.next();
-          if (b.value !== Tokenize.zBlank) {
-            throw new SyntaxError(`expecting blank at ${b.line}:${b.column}`);
-          }
-          const m = zp.c.next();
-          if (m.value !== Tokenize.zString) {
-            throw new SyntaxError(`expecting string but got ${m.token} at ${m.line}:${m.column}`);
-          }
-          const mx = zp.toAbsoluteName(m.token, zp.origin);
-          if (mx === null) {
-            throw new SyntaxError(`${m.token} is not domain at ${m.line}:${m.column}`);
-          }
-          const rr: MX = {
-            hdr: hdr as RrHeader<Rrtype.MX>,
-            preference,
-            mx,
-          }
-          return rr;
-        }
-      case Rrtype.NS:
-        {
-          const l = zp.c.next();
-          if (l.value !== Tokenize.zString) {
-            throw new SyntaxError(`expecting string but got ${l.token} at ${l.line}:${l.column}`);
-          }
-          const ns = zp.toAbsoluteName(l.token, zp.origin);
-          if (ns === null) {
-            throw new SyntaxError(`${l.token} is not domain at ${l.line}:${l.column}`);
-          }
-          const rr: NS = {
-            hdr: hdr as RrHeader<Rrtype.NS>,
-            ns
-          }
-          return rr;
-        }
-      case Rrtype.PTR:
-        {
-          const l = zp.c.next();
-          if (l.value !== Tokenize.zString) {
-            throw new SyntaxError(`expecting string but got ${l.token} at ${l.line}:${l.column}`);
-          }
-          const ptr = zp.toAbsoluteName(l.token, this.origin);
-          if (ptr === null) {
-            throw new SyntaxError(`${l.token} is not domain at ${l.line}:${l.column}`);
-          }
-          const rr: PTR = {
-            hdr: hdr as RrHeader<Rrtype.PTR>,
-            ptr
-          }
-          return rr;
-        }
-      case Rrtype.SOA:
-        {
-          const l = zp.c.next();
-          if (l.value !== Tokenize.zString) {
-            throw new SyntaxError(`expecting string but got ${l.token} at ${l.line}:${l.column}`);
-          }
-          const ns = zp.toAbsoluteName(l.token, zp.origin);
-          if (ns === null) {
-            throw new SyntaxError(`${l.token} is not domain at ${l.line}:${l.column}`);
-          }
-          const b = zp.c.next();
-          if (b.value !== Tokenize.zBlank) {
-            throw new SyntaxError(`expecting blank at ${b.line}:${b.column}`);
-          }
-          const lx = zp.c.next();
-          const mbox = zp.toAbsoluteName(lx.token, zp.origin);
-          if (mbox === null) {
-            throw new SyntaxError(`${l.token} is not domain at ${l.line}:${l.column}`);
-          }
-
-
-          const rr: SOA = {
-            hdr: hdr as RrHeader<Rrtype.SOA>,
-            ns,
-            mbox,
-            serial: 0,
-            refresh: 0,
-            retry: 0,
-            expire: 0,
-            minttl: 0
-          }
-          const b2 = zp.c.next();
-          if (b2.value !== Tokenize.zBlank) {
-            throw new SyntaxError(`expecting blank at ${b2.line}:${b2.column}`);
-          }
-          for (let i = 0; i < 5; i++) {
-            const lx = zp.c.next();
-            const n = parseInt(lx.token);
-            if (isNaN(n)) {
-              throw new SyntaxError(`${lx.token} is not number at ${lx.line}:${lx.column}`);
+          switch (i) {
+            case 0: {
+              rr.serial = n;
+              const lx = zp.c.next();
+              if (lx.value !== Tokenize.zBlank) {
+                throw new SyntaxError(
+                  `${lx.token} is not blank at ${lx.line}:${lx.column}`
+                );
+              }
+              break;
             }
-            switch (i) {
-              case 0:
-                {
-                  rr.serial = n;
-                  const lx = zp.c.next();
-                  if (lx.value !== Tokenize.zBlank) {
-                    throw new SyntaxError(`${lx.token} is not blank at ${lx.line}:${lx.column}`);
-                  }
-                  break;
-                }
-              case 1:
-                {
-                  rr.refresh = n;
-                  const lx = zp.c.next();
-                  if (lx.value !== Tokenize.zBlank) {
-                    throw new SyntaxError(`${lx.token} is not blank at ${lx.line}:${lx.column}`);
-                  }
-                  break;
-                }
-              case 2:
-                {
-                  rr.retry = n;
-                  const lx = zp.c.next();
-                  if (lx.value !== Tokenize.zBlank) {
-                    throw new SyntaxError(`${lx.token} is not blank at ${lx.line}:${lx.column}`);
-                  }
-                  break;
-                }
-              case 3:
-                {
-                  rr.expire = n;
-                  const lx = zp.c.next();
-                  if (lx.value !== Tokenize.zBlank) {
-                    throw new SyntaxError(`${lx.token} is not blank at ${lx.line}:${lx.column}`);
-                  }
-                  break;
-                }
-              case 4:
-                {
-                  rr.minttl = n;
+            case 1: {
+              rr.refresh = n;
+              const lx = zp.c.next();
+              if (lx.value !== Tokenize.zBlank) {
+                throw new SyntaxError(
+                  `${lx.token} is not blank at ${lx.line}:${lx.column}`
+                );
+              }
+              break;
+            }
+            case 2: {
+              rr.retry = n;
+              const lx = zp.c.next();
+              if (lx.value !== Tokenize.zBlank) {
+                throw new SyntaxError(
+                  `${lx.token} is not blank at ${lx.line}:${lx.column}`
+                );
+              }
+              break;
+            }
+            case 3: {
+              rr.expire = n;
+              const lx = zp.c.next();
+              if (lx.value !== Tokenize.zBlank) {
+                throw new SyntaxError(
+                  `${lx.token} is not blank at ${lx.line}:${lx.column}`
+                );
+              }
+              break;
+            }
+            case 4: {
+              rr.minttl = n;
 
-                  break;
-                }
+              break;
             }
           }
-          return rr;
         }
-      case Rrtype.TXT:
-        {
-          const zp = this;
-          const txt = zp.sliceRdata(zp.c);
-          if (txt.length > 1) {
-            throw new SyntaxError('arguments is too many');
-          }
-          const rr: TXT = {
-            hdr: hdr as RrHeader<Rrtype.TXT>,
-            txt: txt[0],
-          }
-          return rr;
-
+        return rr;
+      }
+      case Rrtype.TXT: {
+        const zp = this;
+        const txt = zp.sliceRdata(zp.c);
+        if (txt.length > 1) {
+          throw new SyntaxError('arguments is too many');
         }
-      case Rrtype.A:
-        {
-          const l = zp.c.next();
-          if (l.value !== Tokenize.zString) {
-            throw new SyntaxError(`expecting string but got ${l.token} at ${l.line}:${l.column}`);
-          }
-          const a = l.token;
-          const rr: A = {
-            hdr: hdr as RrHeader<Rrtype.A>,
-            a,
-          }
-          return rr;
+        const rr: TXT = {
+          hdr: hdr as RrHeader<Rrtype.TXT>,
+          txt: txt[0]
+        };
+        return rr;
+      }
+      case Rrtype.A: {
+        const l = zp.c.next();
+        if (l.value !== Tokenize.zString) {
+          throw new SyntaxError(
+            `expecting string but got ${l.token} at ${l.line}:${l.column}`
+          );
         }
+        const a = l.token;
+        const rr: A = {
+          hdr: hdr as RrHeader<Rrtype.A>,
+          a
+        };
+        return rr;
+      }
     }
   }
 
@@ -522,36 +549,39 @@ export class ZoneParser {
     let quote = false;
     let empty = false;
     let l: Lex;
-    for (l = c.next(); l.value !== Tokenize.zNewline && l.value !== Tokenize.zEOF; l = c.next()) {
+    for (
+      l = c.next();
+      l.value !== Tokenize.zNewline && l.value !== Tokenize.zEOF;
+      l = c.next()
+    ) {
       switch (l.value) {
-        case Tokenize.zString:
-          {
-            empty = false;
-            s.push(l.token);
-            break;
+        case Tokenize.zString: {
+          empty = false;
+          s.push(l.token);
+          break;
+        }
+        case Tokenize.zBlank: {
+          if (quote) {
+            throw new SyntaxError(
+              `not expected blank at ${l.line}:${l.column}`
+            );
           }
-        case Tokenize.zBlank:
-          {
-            if (quote) {
-              throw new SyntaxError(`not expected blank at ${l.line}:${l.column}`);
-            }
-            break;
+          break;
+        }
+        case Tokenize.zQuote: {
+          if (empty && quote) {
+            s.push('');
           }
-        case Tokenize.zQuote:
-          {
-            if (empty && quote) {
-              s.push('');
-            }
-            quote = !quote;
-            empty = true;
-            break;
-          }
-        default:
-          {
-            throw new SyntaxError(`expecting string but got ${l.token} at ${l.line}:${l.column}`);
-          }
+          quote = !quote;
+          empty = true;
+          break;
+        }
+        default: {
+          throw new SyntaxError(
+            `expecting string but got ${l.token} at ${l.line}:${l.column}`
+          );
+        }
       }
-
     }
     if (quote) {
       throw new SyntaxError(`missing \'"\' at ${l.line}:${l.column}`);
