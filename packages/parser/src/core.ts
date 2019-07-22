@@ -332,10 +332,7 @@ export class ZoneParser {
             `${l.token} is not domain at ${l.line}:${l.column}`
           );
         }
-        const rr: CNAME = {
-          hdr: hdr as RrHeader<Rrtype.CNAME>,
-          target
-        };
+        const rr: CNAME = { ...(hdr as RrHeader<Rrtype.CNAME>), target };
         return rr;
       }
       case Rrtype.HINFO: {
@@ -357,11 +354,8 @@ export class ZoneParser {
           );
         }
         const os = lx.token;
-        const rr: HINFO = {
-          hdr: hdr as RrHeader<Rrtype.HINFO>,
-          cpu,
-          os
-        };
+        const rr: HINFO = { ...(hdr as RrHeader<Rrtype.HINFO>), cpu, os };
+
         return rr;
       }
       case Rrtype.MX: {
@@ -393,11 +387,7 @@ export class ZoneParser {
             `${m.token} is not domain at ${m.line}:${m.column}`
           );
         }
-        const rr: MX = {
-          hdr: hdr as RrHeader<Rrtype.MX>,
-          preference,
-          mx
-        };
+        const rr: MX = { ...(hdr as RrHeader<Rrtype.MX>), preference, mx };
         return rr;
       }
       case Rrtype.NS: {
@@ -413,10 +403,7 @@ export class ZoneParser {
             `${l.token} is not domain at ${l.line}:${l.column}`
           );
         }
-        const rr: NS = {
-          hdr: hdr as RrHeader<Rrtype.NS>,
-          ns
-        };
+        const rr: NS = { ...(hdr as RrHeader<Rrtype.NS>), ns };
         return rr;
       }
       case Rrtype.PTR: {
@@ -432,10 +419,7 @@ export class ZoneParser {
             `${l.token} is not domain at ${l.line}:${l.column}`
           );
         }
-        const rr: PTR = {
-          hdr: hdr as RrHeader<Rrtype.PTR>,
-          ptr
-        };
+        const rr: PTR = { ...(hdr as RrHeader<Rrtype.PTR>), ptr };
         return rr;
       }
       case Rrtype.SOA: {
@@ -541,10 +525,7 @@ export class ZoneParser {
         if (txt.length > 1) {
           throw new SyntaxError('arguments is too many');
         }
-        const rr: TXT = {
-          hdr: hdr as RrHeader<Rrtype.TXT>,
-          txt: txt[0]
-        };
+        const rr: TXT = { ...(hdr as RrHeader<Rrtype.TXT>), txt: txt[0] };
         return rr;
       }
       case Rrtype.A: {
@@ -555,10 +536,7 @@ export class ZoneParser {
           );
         }
         const a = l.token;
-        const rr: A = {
-          hdr: hdr as RrHeader<Rrtype.A>,
-          a
-        };
+        const rr: A = { ...(hdr as RrHeader<Rrtype.A>), a };
         return rr;
       }
     }

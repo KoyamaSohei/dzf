@@ -1,8 +1,8 @@
-@dzfu/parser
---------
+## @dzfu/parser
+
 dns zonefile parser
 
-[![Build Status](https://travis-ci.org/KoyamaSohei/dzfu.svg?branch=master)](https://travis-ci.org/KoyamaSohei/dzfu) 
+[![Build Status](https://travis-ci.org/KoyamaSohei/dzfu.svg?branch=master)](https://travis-ci.org/KoyamaSohei/dzfu)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
 ## Install
@@ -14,7 +14,7 @@ yarn add @dzfu/parser
 ## Usage
 
 ```ts
-import { parseZone, RR } from '@dzfu/parser';
+import { parseZone, RR } from "@dzfu/parser";
 
 const text = `
 $TTL  3600
@@ -47,18 +47,16 @@ foo.example1.com.  IN  CNAME example2.com.
 bar.example1.com.  IN  CNAME foo.example2.com.
 `;
 
-const rrs: RR[] = parseZone(text,'example1.com.');
+const rrs: RR[] = parseZone(text, "example1.com.");
 console.log(rrs);
 /**
 Array [
   Object {
     "expire": 1209600,
-    "hdr": Object {
-      "class": 0,
-      "name": "example1.com.",
-      "rrtype": 5,
-      "ttl": 3600,
-    },
+    "class": 0,
+    "name": "example1.com.",
+    "rrtype": 5,
+    "ttl": 3600,
     "mbox": "root.example1.com.",
     "minttl": 3600,
     "ns": "ns.example1.com.",
@@ -67,27 +65,22 @@ Array [
     "serial": 20190101,
   },
   Object {
-    "hdr": Object {
-      "class": 0,
-      "name": "example1.com.",
-      "rrtype": 3,
-      "ttl": 3600,
-    },
+    "class": 0,
+    "name": "example1.com.",
+    "rrtype": 3,
+    "ttl": 3600,
     "ns": "ns.example1.com.",
   },
 
   ...,
 
   Object {
-    "hdr": Object {
-      "class": 0,
-      "name": "bar.example1.com.",
-      "rrtype": 0,
-      "ttl": 3600,
-    },
+    "class": 0,
+    "name": "bar.example1.com.",
+    "rrtype": 0,
+    "ttl": 3600,
     "target": "foo.example2.com.",
   },
 ]
 */
-
 ```
