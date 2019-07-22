@@ -4,12 +4,10 @@ exports[`normal scenario $ORIGIN @ 1`] = `
 Array [
   Object {
     "a": "123.45.67.89",
-    "hdr": Object {
-      "class": 5,
-      "name": "example1.com.",
-      "rrtype": 7,
-      "ttl": 3600,
-    },
+    "class": 5,
+    "name": "example1.com.",
+    "rrtype": 7,
+    "ttl": 3600,
   },
 ]
 `;
@@ -18,12 +16,10 @@ exports[`normal scenario $ORIGIN basic 1`] = `
 Array [
   Object {
     "a": "123.45.67.89",
-    "hdr": Object {
-      "class": 5,
-      "name": "example1.com.",
-      "rrtype": 7,
-      "ttl": 3600,
-    },
+    "class": 5,
+    "name": "example1.com.",
+    "rrtype": 7,
+    "ttl": 3600,
   },
 ]
 `;
@@ -32,12 +28,10 @@ exports[`normal scenario $ORIGIN not override 1`] = `
 Array [
   Object {
     "a": "123.45.67.89",
-    "hdr": Object {
-      "class": 5,
-      "name": "example1.com.",
-      "rrtype": 7,
-      "ttl": 3600,
-    },
+    "class": 5,
+    "name": "example1.com.",
+    "rrtype": 7,
+    "ttl": 3600,
   },
 ]
 `;
@@ -46,12 +40,10 @@ exports[`normal scenario $TTL basic 1`] = `
 Array [
   Object {
     "a": "123.45.67.89",
-    "hdr": Object {
-      "class": 5,
-      "name": "example1.com.",
-      "rrtype": 7,
-      "ttl": 99999,
-    },
+    "class": 5,
+    "name": "example1.com.",
+    "rrtype": 7,
+    "ttl": 99999,
   },
 ]
 `;
@@ -60,12 +52,10 @@ exports[`normal scenario $TTL not override 1`] = `
 Array [
   Object {
     "a": "123.45.67.89",
-    "hdr": Object {
-      "class": 5,
-      "name": "example1.com.",
-      "rrtype": 7,
-      "ttl": 3600,
-    },
+    "class": 5,
+    "name": "example1.com.",
+    "rrtype": 7,
+    "ttl": 3600,
   },
 ]
 `;
@@ -73,19 +63,17 @@ Array [
 exports[`normal scenario SOA record with TTL 1`] = `
 Array [
   Object {
+    "class": 0,
     "expire": 10000,
-    "hdr": Object {
-      "class": 0,
-      "name": "example1.com.",
-      "rrtype": 5,
-      "ttl": 3600,
-    },
     "mbox": "root.example1.com.",
     "minttl": 10000,
+    "name": "example1.com.",
     "ns": "ns1.example1.com.",
     "refresh": 10000,
     "retry": 10000,
+    "rrtype": 5,
     "serial": 10000,
+    "ttl": 3600,
   },
 ]
 `;
@@ -93,19 +81,17 @@ Array [
 exports[`normal scenario SOA record with TTL 2 1`] = `
 Array [
   Object {
+    "class": 0,
     "expire": 10000,
-    "hdr": Object {
-      "class": 0,
-      "name": "example1.com.",
-      "rrtype": 5,
-      "ttl": 3600,
-    },
     "mbox": "root.example1.com.",
     "minttl": 10000,
+    "name": "example1.com.",
     "ns": "ns1.example1.com.",
     "refresh": 10000,
     "retry": 10000,
+    "rrtype": 5,
     "serial": 10000,
+    "ttl": 3600,
   },
 ]
 `;
@@ -113,19 +99,17 @@ Array [
 exports[`normal scenario SOA record with class 1`] = `
 Array [
   Object {
+    "class": 0,
     "expire": 10000,
-    "hdr": Object {
-      "class": 0,
-      "name": "example1.com.",
-      "rrtype": 5,
-      "ttl": 3600,
-    },
     "mbox": "root.example1.com.",
     "minttl": 10000,
+    "name": "example1.com.",
     "ns": "ns1.example1.com.",
     "refresh": 10000,
     "retry": 10000,
+    "rrtype": 5,
     "serial": 10000,
+    "ttl": 3600,
   },
 ]
 `;
@@ -133,19 +117,17 @@ Array [
 exports[`normal scenario SOA record without class 1`] = `
 Array [
   Object {
+    "class": 0,
     "expire": 10000,
-    "hdr": Object {
-      "class": 0,
-      "name": "example1.com.",
-      "rrtype": 5,
-      "ttl": 3600,
-    },
     "mbox": "root.example1.com.",
     "minttl": 10000,
+    "name": "example1.com.",
     "ns": "ns1.example1.com.",
     "refresh": 10000,
     "retry": 10000,
+    "rrtype": 5,
     "serial": 10000,
+    "ttl": 3600,
   },
 ]
 `;
@@ -153,19 +135,17 @@ Array [
 exports[`normal scenario SOA record without class,with TTL 1`] = `
 Array [
   Object {
+    "class": 0,
     "expire": 10000,
-    "hdr": Object {
-      "class": 0,
-      "name": "example1.com.",
-      "rrtype": 5,
-      "ttl": 3600,
-    },
     "mbox": "root.example1.com.",
     "minttl": 10000,
+    "name": "example1.com.",
     "ns": "ns1.example1.com.",
     "refresh": 10000,
     "retry": 10000,
+    "rrtype": 5,
     "serial": 10000,
+    "ttl": 3600,
   },
 ]
 `;
@@ -174,12 +154,10 @@ exports[`normal scenario absolute domain name + origin 1`] = `
 Array [
   Object {
     "a": "123.45.67.89",
-    "hdr": Object {
-      "class": 5,
-      "name": "dog.example1.com.",
-      "rrtype": 7,
-      "ttl": 3600,
-    },
+    "class": 5,
+    "name": "dog.example1.com.",
+    "rrtype": 7,
+    "ttl": 3600,
   },
 ]
 `;
@@ -188,12 +166,10 @@ exports[`normal scenario misc ignore comments 1`] = `
 Array [
   Object {
     "a": "123.45.67.89",
-    "hdr": Object {
-      "class": 5,
-      "name": "dog.example1.com.",
-      "rrtype": 7,
-      "ttl": 3600,
-    },
+    "class": 5,
+    "name": "dog.example1.com.",
+    "rrtype": 7,
+    "ttl": 3600,
   },
 ]
 `;
@@ -201,118 +177,94 @@ Array [
 exports[`normal scenario multiple lines example 1`] = `
 Array [
   Object {
+    "class": 0,
     "expire": 1209600,
-    "hdr": Object {
-      "class": 0,
-      "name": "example1.com.",
-      "rrtype": 5,
-      "ttl": 3600,
-    },
     "mbox": "root.example1.com.",
     "minttl": 3600,
+    "name": "example1.com.",
     "ns": "ns.example1.com.",
     "refresh": 3600,
     "retry": 3600,
+    "rrtype": 5,
     "serial": 20190101,
+    "ttl": 3600,
   },
   Object {
-    "hdr": Object {
-      "class": 0,
-      "name": "example1.com.",
-      "rrtype": 3,
-      "ttl": 3600,
-    },
+    "class": 0,
+    "name": "example1.com.",
     "ns": "ns.example1.com.",
+    "rrtype": 3,
+    "ttl": 3600,
   },
   Object {
-    "hdr": Object {
-      "class": 0,
-      "name": "example1.com.",
-      "rrtype": 3,
-      "ttl": 3600,
-    },
+    "class": 0,
+    "name": "example1.com.",
     "ns": "ns2.example1.com.",
+    "rrtype": 3,
+    "ttl": 3600,
   },
   Object {
     "a": "127.0.0.1",
-    "hdr": Object {
-      "class": 0,
-      "name": "localhost.example1.com.",
-      "rrtype": 7,
-      "ttl": 3600,
-    },
+    "class": 0,
+    "name": "localhost.example1.com.",
+    "rrtype": 7,
+    "ttl": 3600,
   },
   Object {
     "a": "192.1.2.2",
-    "hdr": Object {
-      "class": 0,
-      "name": "ns.example1.com.",
-      "rrtype": 7,
-      "ttl": 3600,
-    },
+    "class": 0,
+    "name": "ns.example1.com.",
+    "rrtype": 7,
+    "ttl": 3600,
   },
   Object {
     "a": "192.1.2.3",
-    "hdr": Object {
-      "class": 0,
-      "name": "ns2.example1.com.",
-      "rrtype": 7,
-      "ttl": 3600,
-    },
+    "class": 0,
+    "name": "ns2.example1.com.",
+    "rrtype": 7,
+    "ttl": 3600,
   },
   Object {
     "a": "192.249.249.1",
-    "hdr": Object {
-      "class": 0,
-      "name": "bug.example1.com.",
-      "rrtype": 7,
-      "ttl": 3600,
-    },
+    "class": 0,
+    "name": "bug.example1.com.",
+    "rrtype": 7,
+    "ttl": 3600,
   },
   Object {
     "a": "192.249.249.2",
-    "hdr": Object {
-      "class": 0,
-      "name": "dog.example1.com.",
-      "rrtype": 7,
-      "ttl": 3600,
-    },
+    "class": 0,
+    "name": "dog.example1.com.",
+    "rrtype": 7,
+    "ttl": 3600,
   },
   Object {
     "a": "192.249.249.3",
-    "hdr": Object {
-      "class": 0,
-      "name": "cat.example1.com.",
-      "rrtype": 7,
-      "ttl": 3600,
-    },
+    "class": 0,
+    "name": "cat.example1.com.",
+    "rrtype": 7,
+    "ttl": 3600,
   },
   Object {
     "a": "192.249.249.4",
-    "hdr": Object {
-      "class": 0,
-      "name": "shark.example1.com.",
-      "rrtype": 7,
-      "ttl": 3600,
-    },
+    "class": 0,
+    "name": "shark.example1.com.",
+    "rrtype": 7,
+    "ttl": 3600,
   },
   Object {
-    "hdr": Object {
-      "class": 0,
-      "name": "foo.example1.com.",
-      "rrtype": 0,
-      "ttl": 3600,
-    },
+    "class": 0,
+    "name": "foo.example1.com.",
+    "rrtype": 0,
     "target": "example2.com.",
+    "ttl": 3600,
   },
   Object {
-    "hdr": Object {
-      "class": 0,
-      "name": "bar.example1.com.",
-      "rrtype": 0,
-      "ttl": 3600,
-    },
+    "class": 0,
+    "name": "bar.example1.com.",
+    "rrtype": 0,
     "target": "foo.example2.com.",
+    "ttl": 3600,
   },
 ]
 `;
@@ -321,12 +273,10 @@ exports[`normal scenario other rrtypes records A 1`] = `
 Array [
   Object {
     "a": "123.45.67.89",
-    "hdr": Object {
-      "class": 5,
-      "name": "example1.com.",
-      "rrtype": 7,
-      "ttl": 3600,
-    },
+    "class": 5,
+    "name": "example1.com.",
+    "rrtype": 7,
+    "ttl": 3600,
   },
 ]
 `;
@@ -334,13 +284,11 @@ Array [
 exports[`normal scenario other rrtypes records CNAME with TTL 1`] = `
 Array [
   Object {
-    "hdr": Object {
-      "class": 2,
-      "name": "foo.example1.com.",
-      "rrtype": 0,
-      "ttl": 3600,
-    },
+    "class": 2,
+    "name": "foo.example1.com.",
+    "rrtype": 0,
     "target": "example2.com.",
+    "ttl": 3600,
   },
 ]
 `;
@@ -348,13 +296,11 @@ Array [
 exports[`normal scenario other rrtypes records CNAME with class 1`] = `
 Array [
   Object {
-    "hdr": Object {
-      "class": 1,
-      "name": "foo.example1.com.",
-      "rrtype": 0,
-      "ttl": 3600,
-    },
+    "class": 1,
+    "name": "foo.example1.com.",
+    "rrtype": 0,
     "target": "example2.com.",
+    "ttl": 3600,
   },
 ]
 `;
@@ -362,14 +308,12 @@ Array [
 exports[`normal scenario other rrtypes records HINFO 1`] = `
 Array [
   Object {
+    "class": 0,
     "cpu": "foopc",
-    "hdr": Object {
-      "class": 0,
-      "name": "example1.com.",
-      "rrtype": 1,
-      "ttl": 3600,
-    },
+    "name": "example1.com.",
     "os": "UNIX",
+    "rrtype": 1,
+    "ttl": 3600,
   },
 ]
 `;
@@ -377,14 +321,12 @@ Array [
 exports[`normal scenario other rrtypes records MX 1`] = `
 Array [
   Object {
-    "hdr": Object {
-      "class": 0,
-      "name": "example1.com.",
-      "rrtype": 2,
-      "ttl": 1800,
-    },
+    "class": 0,
     "mx": "mail1.example.com.",
+    "name": "example1.com.",
     "preference": 10,
+    "rrtype": 2,
+    "ttl": 1800,
   },
 ]
 `;
@@ -392,13 +334,11 @@ Array [
 exports[`normal scenario other rrtypes records NS 1`] = `
 Array [
   Object {
-    "hdr": Object {
-      "class": 3,
-      "name": "example1.com.",
-      "rrtype": 3,
-      "ttl": 3600,
-    },
+    "class": 3,
+    "name": "example1.com.",
     "ns": "ns1.example1.com.",
+    "rrtype": 3,
+    "ttl": 3600,
   },
 ]
 `;
@@ -406,12 +346,10 @@ Array [
 exports[`normal scenario other rrtypes records TXT 1`] = `
 Array [
   Object {
-    "hdr": Object {
-      "class": 1,
-      "name": "example1.com.",
-      "rrtype": 6,
-      "ttl": 3600,
-    },
+    "class": 1,
+    "name": "example1.com.",
+    "rrtype": 6,
+    "ttl": 3600,
     "txt": "foo! foo! foo!",
   },
 ]

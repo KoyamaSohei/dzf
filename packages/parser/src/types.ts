@@ -23,7 +23,7 @@ export interface TTLState {
   isByDirective: boolean;
 }
 
-export interface RrHeader<T = Rrtype> {
+export interface RrHeader<T extends Rrtype = Rrtype> {
   name: string;
   rrtype: T;
   class: Class;
@@ -32,35 +32,29 @@ export interface RrHeader<T = Rrtype> {
 
 export type RR = CNAME | HINFO | MX | NS | PTR | SOA | TXT | A;
 
-export interface CNAME {
-  hdr: RrHeader<Rrtype.CNAME>;
+export type CNAME = RrHeader<Rrtype.CNAME> & {
   target: string;
-}
+};
 
-export interface HINFO {
-  hdr: RrHeader<Rrtype.HINFO>;
+export type HINFO = RrHeader<Rrtype.HINFO> & {
   cpu: string;
   os: string;
-}
+};
 
-export interface MX {
-  hdr: RrHeader<Rrtype.MX>;
+export type MX = RrHeader<Rrtype.MX> & {
   preference: number;
   mx: string;
-}
+};
 
-export interface NS {
-  hdr: RrHeader<Rrtype.NS>;
+export type NS = RrHeader<Rrtype.NS> & {
   ns: string;
-}
+};
 
-export interface PTR {
-  hdr: RrHeader<Rrtype.PTR>;
+export type PTR = RrHeader<Rrtype.PTR> & {
   ptr: string;
-}
+};
 
-export interface SOA {
-  hdr: RrHeader<Rrtype.SOA>;
+export type SOA = RrHeader<Rrtype.SOA> & {
   ns: string;
   mbox: string;
   serial: number;
@@ -68,17 +62,15 @@ export interface SOA {
   retry: number;
   expire: number;
   minttl: number;
-}
+};
 
-export interface TXT {
-  hdr: RrHeader<Rrtype.TXT>;
+export type TXT = RrHeader<Rrtype.TXT> & {
   txt: string;
-}
+};
 
-export interface A {
-  hdr: RrHeader<Rrtype.A>;
+export type A = RrHeader<Rrtype.A> & {
   a: string;
-}
+};
 
 export interface Lex {
   token: string;
