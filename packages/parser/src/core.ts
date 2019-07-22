@@ -1,5 +1,21 @@
 import { ZoneLexer, ByteReader } from './lexer';
-import { RrHeader, TTLState, Class, Rrtype, CNAME, HINFO, MX, NS, PTR, SOA, TXT, A, Tokenize, Lex, RR } from './types';
+import {
+  RrHeader,
+  TTLState,
+  Class,
+  Rrtype,
+  CNAME,
+  HINFO,
+  MX,
+  NS,
+  PTR,
+  SOA,
+  TXT,
+  A,
+  Tokenize,
+  Lex,
+  RR
+} from './types';
 
 export class ZoneParser {
   private c: ZoneLexer;
@@ -7,15 +23,20 @@ export class ZoneParser {
   public file: string;
   private h: RrHeader | null;
   private defttl: TTLState | null;
-  public constructor(r: ByteReader, origin: string, file: string, defaultTtl: number) {
+  public constructor(
+    r: ByteReader,
+    origin: string,
+    file: string,
+    defaultTtl: number
+  ) {
     this.c = new ZoneLexer(r);
     this.origin = origin;
     this.file = file;
     this.h = null;
     this.defttl = {
       ttl: defaultTtl,
-      isByDirective: true,
-    }
+      isByDirective: true
+    };
   }
 
   public toAbsoluteName(name: string, origin: string) {
@@ -26,7 +47,7 @@ export class ZoneParser {
       return name;
     }
     if (name == '@') {
-      return origin
+      return origin;
     }
     if (origin == '.') {
       return name + origin;
@@ -43,254 +64,253 @@ export class ZoneParser {
     let h = (zp.h || {}) as RrHeader;
     for (let l = zp.c.next(); l.value !== Tokenize.zEOF; l = zp.c.next()) {
       switch (state) {
-        case Tokenize.zExpectOwnerDir:
-          {
-            if (zp.defttl !== null) {
-              h.ttl = zp.defttl.ttl;
-            }
-            h.class = Class.IN;
-            switch (l.value) {
-              case Tokenize.zNewline:
-                {
-                  state = Tokenize.zExpectOwnerDir;
-                  break;
-                }
-              case Tokenize.zOwner:
-                {
-                  const n = this.toAbsoluteName(l.token, zp.origin);
-                  h.name = n;
-                  state = Tokenize.zExpectOwnerBl;
-                  break;
-                }
-              case Tokenize.zDirTTL:
-                {
-                  state = Tokenize.zExpectDirTTLBl;
-                  break;
-                }
-              case Tokenize.zDirOrigin:
-                {
-                  state = Tokenize.zExpectDirOriginBl;
-                  break;
-                }
-              case Tokenize.zRrtype:
-                {
-                  h.rrtype = l.torc as Rrtype;
-                  state = Tokenize.zExpectRdata;
-                  break;
-                }
-              case Tokenize.zClass:
-                {
-                  h.class = l.torc as Class;
-                  state = Tokenize.zExpectAnyNoClassBl;
-                  break;
-                }
-              case Tokenize.zBlank:
-                break;
-              case Tokenize.zString:
-                {
-                  const t = parseInt(l.token);
-                  if (isNaN(t)) {
-                    throw new TypeError(`${l.token} is not number at ${l.line}: ${l.column}`);
-                  }
-                  h.ttl = t;
-                  if (zp.defttl == null || !zp.defttl.isByDirective) {
-                    zp.defttl = {
-                      ttl: t,
-                      isByDirective: false,
-                    }
-                  }
-                  state = Tokenize.zExpectAnyNoTTLBl;
-                  break;
-                }
-              default:
-                {
-                  throw new SyntaxError(`error at ${l.line}: ${l.column}`);
-                }
-            }
-            break;
+        case Tokenize.zExpectOwnerDir: {
+          if (zp.defttl !== null) {
+            h.ttl = zp.defttl.ttl;
           }
-        case Tokenize.zExpectDirTTLBl:
-          {
-            if (l.value !== Tokenize.zBlank) {
-              throw new SyntaxError(`no blank after $TTL-directive at ${l.line}:${l.column}`);
+          h.class = Class.IN;
+          switch (l.value) {
+            case Tokenize.zNewline: {
+              state = Tokenize.zExpectOwnerDir;
+              break;
             }
-            state = Tokenize.zExpectDirTTL;
-            break;
+            case Tokenize.zOwner: {
+              const n = this.toAbsoluteName(l.token, zp.origin);
+              h.name = n;
+              state = Tokenize.zExpectOwnerBl;
+              break;
+            }
+            case Tokenize.zDirTTL: {
+              state = Tokenize.zExpectDirTTLBl;
+              break;
+            }
+            case Tokenize.zDirOrigin: {
+              state = Tokenize.zExpectDirOriginBl;
+              break;
+            }
+            case Tokenize.zRrtype: {
+              h.rrtype = l.torc as Rrtype;
+              state = Tokenize.zExpectRdata;
+              break;
+            }
+            case Tokenize.zClass: {
+              h.class = l.torc as Class;
+              state = Tokenize.zExpectAnyNoClassBl;
+              break;
+            }
+            case Tokenize.zBlank:
+              break;
+            case Tokenize.zString: {
+              const t = parseInt(l.token);
+              if (isNaN(t)) {
+                throw new TypeError(
+                  `${l.token} is not number at ${l.line}: ${l.column}`
+                );
+              }
+              h.ttl = t;
+              if (zp.defttl == null || !zp.defttl.isByDirective) {
+                zp.defttl = {
+                  ttl: t,
+                  isByDirective: false
+                };
+              }
+              state = Tokenize.zExpectAnyNoTTLBl;
+              break;
+            }
+            default: {
+              throw new SyntaxError(`error at ${l.line}: ${l.column}`);
+            }
           }
-        case Tokenize.zExpectDirTTL:
-          {
-            if (l.value !== Tokenize.zString) {
-              throw new SyntaxError(`expecting $TTL value at ${l.line}:${l.column}`);
+          break;
+        }
+        case Tokenize.zExpectDirTTLBl: {
+          if (l.value !== Tokenize.zBlank) {
+            throw new SyntaxError(
+              `no blank after $TTL-directive at ${l.line}:${l.column}`
+            );
+          }
+          state = Tokenize.zExpectDirTTL;
+          break;
+        }
+        case Tokenize.zExpectDirTTL: {
+          if (l.value !== Tokenize.zString) {
+            throw new SyntaxError(
+              `expecting $TTL value at ${l.line}:${l.column}`
+            );
+          }
+          const t = parseInt(l.token);
+          if (isNaN(t)) {
+            throw new SyntaxError(
+              `${l.token} is not number at ${l.line}:${l.column}`
+            );
+          }
+          zp.defttl = {
+            ttl: t,
+            isByDirective: true
+          };
+
+          state = Tokenize.zExpectOwnerDir;
+          break;
+        }
+        case Tokenize.zExpectDirOriginBl: {
+          if (l.value !== Tokenize.zBlank) {
+            throw new SyntaxError(
+              `no blank after $ORIGIN at ${l.line}:${l.column}`
+            );
+          }
+          state = Tokenize.zExpectDirOrigin;
+          break;
+        }
+        case Tokenize.zExpectDirOrigin: {
+          if (l.value !== Tokenize.zString) {
+            throw new SyntaxError(`expecting $ORIGIN at ${l.line}:${l.column}`);
+          }
+          zp.origin = l.token;
+          state = Tokenize.zExpectOwnerDir;
+          break;
+        }
+        case Tokenize.zExpectOwnerBl: {
+          if (l.value !== Tokenize.zBlank) {
+            throw new SyntaxError(
+              `no blank after owner at ${l.line}:${l.column}`
+            );
+          }
+          state = Tokenize.zExpectAny;
+          break;
+        }
+        case Tokenize.zExpectAny: {
+          switch (l.value) {
+            case Tokenize.zRrtype: {
+              if (zp.defttl == null) {
+                throw new SyntaxError(
+                  `missing TTL with no previous value at ${l.line}:${l.column}`
+                );
+              }
+              h.rrtype = l.torc as Rrtype;
+              state = Tokenize.zExpectRdata;
+              break;
             }
-            const t = parseInt(l.token);
-            if (isNaN(t)) {
-              throw new SyntaxError(`${l.token} is not number at ${l.line}:${l.column}`);
+            case Tokenize.zClass: {
+              h.class = l.torc as Class;
+              state = Tokenize.zExpectAnyNoClassBl;
+              break;
             }
-            zp.defttl = {
-              ttl: t,
-              isByDirective: true,
+            case Tokenize.zString: {
+              const t = parseInt(l.token);
+              if (isNaN(t)) {
+                throw new SyntaxError(
+                  `${l.token} is not number at ${l.line}:${l.column}`
+                );
+              }
+              h.ttl = t;
+              if (zp.defttl === null || !zp.defttl.isByDirective) {
+                zp.defttl = {
+                  ttl: t,
+                  isByDirective: false
+                };
+              }
+              state = Tokenize.zExpectAnyNoTTLBl;
+              break;
+            }
+            default:
+              throw new SyntaxError(
+                `expecting RR type,TTL ot Class at ${l.line}:${l.column}`
+              );
+          }
+          break;
+        }
+        case Tokenize.zExpectAnyNoClassBl: {
+          if (l.value !== Tokenize.zBlank) {
+            throw new SyntaxError(
+              `no blank before class at ${l.line}:${l.column}`
+            );
+          }
+          state = Tokenize.zExpectAnyNoClass;
+          break;
+        }
+        case Tokenize.zExpectAnyNoTTLBl: {
+          if (l.value !== Tokenize.zBlank) {
+            throw new SyntaxError(
+              `no blank before ttl at ${l.line}:${l.column}`
+            );
+          }
+          state = Tokenize.zExpectAnyNoTTL;
+          break;
+        }
+        case Tokenize.zExpectAnyNoClass: {
+          switch (l.value) {
+            case Tokenize.zString: {
+              const t = parseInt(l.token);
+              if (isNaN(t)) {
+                throw new SyntaxError(
+                  `${l.token} is not number at ${l.line}:${l.column}`
+                );
+              }
+              h.ttl = t;
+              if (zp.defttl === null || !zp.defttl.isByDirective) {
+                zp.defttl = {
+                  ttl: t,
+                  isByDirective: false
+                };
+              }
+              state = Tokenize.zExpectRrtypeBl;
+              break;
+            }
+            case Tokenize.zRrtype: {
+              h.rrtype = l.torc as Rrtype;
+              state = Tokenize.zExpectRdata;
+              break;
+            }
+            default:
+              throw new SyntaxError(
+                `expecting Rr type or ttl at ${l.line}:${l.column}`
+              );
+          }
+          break;
+        }
+        case Tokenize.zExpectAnyNoTTL: {
+          switch (l.value) {
+            case Tokenize.zClass: {
+              h.class = l.torc as Class;
+              state = Tokenize.zExpectRrtypeBl;
+              break;
             }
 
-            state = Tokenize.zExpectOwnerDir;
-            break;
-          }
-        case Tokenize.zExpectDirOriginBl:
-          {
-            if (l.value !== Tokenize.zBlank) {
-              throw new SyntaxError(`no blank after $ORIGIN at ${l.line}:${l.column}`);
+            case Tokenize.zRrtype: {
+              h.rrtype = l.torc as Rrtype;
+              state = Tokenize.zExpectRdata;
+              break;
             }
-            state = Tokenize.zExpectDirOrigin;
-            break;
+            default:
+              throw new SyntaxError(
+                `expecting RR type or class at ${l.line}:${l.column}`
+              );
           }
-        case Tokenize.zExpectDirOrigin:
-          {
-            if (l.value !== Tokenize.zString) {
-              throw new SyntaxError(`expecting $ORIGIN at ${l.line}:${l.column}`);
-            }
-            zp.origin = l.token;
-            state = Tokenize.zExpectOwnerDir;
-            break;
-
+          break;
+        }
+        case Tokenize.zExpectRrtypeBl: {
+          if (l.value !== Tokenize.zBlank) {
+            throw new SyntaxError(
+              `expecting RR type or TTL at ${l.line}:${l.column}`
+            );
           }
-        case Tokenize.zExpectOwnerBl:
-          {
-            if (l.value !== Tokenize.zBlank) {
-              throw new SyntaxError(`no blank after owner at ${l.line}:${l.column}`);
-            }
-            state = Tokenize.zExpectAny;
-            break;
+          state = Tokenize.zExpectRrtype;
+          break;
+        }
+        case Tokenize.zExpectRrtype: {
+          if (l.value !== Tokenize.zRrtype) {
+            throw new SyntaxError(`unknown RR type at ${l.line}:${l.column}`);
           }
-        case Tokenize.zExpectAny:
-          {
-            switch (l.value) {
-              case Tokenize.zRrtype:
-                {
-                  if (zp.defttl == null) {
-                    throw new SyntaxError(`missing TTL with no previous value at ${l.line}:${l.column}`);
-                  }
-                  h.rrtype = l.torc as Rrtype;
-                  state = Tokenize.zExpectRdata;
-                  break;
-                }
-              case Tokenize.zClass:
-                {
-                  h.class = l.torc as Class;
-                  state = Tokenize.zExpectAnyNoClassBl;
-                  break;
-                }
-              case Tokenize.zString:
-                {
-                  const t = parseInt(l.token);
-                  if (isNaN(t)) {
-                    throw new SyntaxError(`${l.token} is not number at ${l.line}:${l.column}`);
-                  }
-                  h.ttl = t;
-                  if (zp.defttl === null || !zp.defttl.isByDirective) {
-                    zp.defttl = {
-                      ttl: t,
-                      isByDirective: false,
-                    }
-                  }
-                  state = Tokenize.zExpectAnyNoTTLBl;
-                  break;
-                }
-              default:
-                throw new SyntaxError(`expecting RR type,TTL ot Class at ${l.line}:${l.column}`);
-            }
-            break;
+          h.rrtype = l.torc as Rrtype;
+          state = Tokenize.zExpectRdata;
+          break;
+        }
+        case Tokenize.zExpectRdata: {
+          if (l.value !== Tokenize.zBlank) {
+            throw new SyntaxError(`expecting blank at ${l.line}:${l.column}`);
           }
-        case Tokenize.zExpectAnyNoClassBl:
-          {
-            if (l.value !== Tokenize.zBlank) {
-              throw new SyntaxError(`no blank before class at ${l.line}:${l.column}`);
-            }
-            state = Tokenize.zExpectAnyNoClass;
-            break;
-          }
-        case Tokenize.zExpectAnyNoTTLBl:
-          {
-            if (l.value !== Tokenize.zBlank) {
-              throw new SyntaxError(`no blank before ttl at ${l.line}:${l.column}`);
-            }
-            state = Tokenize.zExpectAnyNoTTL;
-            break;
-          }
-        case Tokenize.zExpectAnyNoClass:
-          {
-            switch (l.value) {
-              case Tokenize.zString:
-                {
-                  const t = parseInt(l.token);
-                  if (isNaN(t)) {
-                    throw new SyntaxError(`${l.token} is not number at ${l.line}:${l.column}`);
-                  }
-                  h.ttl = t;
-                  if (zp.defttl === null || !zp.defttl.isByDirective) {
-                    zp.defttl = {
-                      ttl: t,
-                      isByDirective: false
-                    }
-                  }
-                  state = Tokenize.zExpectRrtypeBl;
-                  break;
-                }
-              case Tokenize.zRrtype:
-                {
-                  h.rrtype = l.torc as Rrtype;
-                  state = Tokenize.zExpectRdata;
-                  break;
-                }
-              default:
-                throw new SyntaxError(`expecting Rr type or ttl at ${l.line}:${l.column}`);
-            }
-            break;
-          }
-        case Tokenize.zExpectAnyNoTTL:
-          {
-            switch (l.value) {
-              case Tokenize.zClass:
-                {
-                  h.class = l.torc as Class;
-                  state = Tokenize.zExpectRrtypeBl;
-                  break;
-
-                }
-
-              case Tokenize.zRrtype:
-                {
-                  h.rrtype = l.torc as Rrtype;
-                  state = Tokenize.zExpectRdata;
-                  break;
-                }
-              default:
-                throw new SyntaxError(`expecting RR type or class at ${l.line}:${l.column}`);
-            }
-            break;
-          }
-        case Tokenize.zExpectRrtypeBl:
-          {
-            if (l.value !== Tokenize.zBlank) {
-              throw new SyntaxError(`expecting RR type or TTL at ${l.line}:${l.column}`);
-            }
-            state = Tokenize.zExpectRrtype;
-            break;
-          }
-        case Tokenize.zExpectRrtype:
-          {
-            if (l.value !== Tokenize.zRrtype) {
-              throw new SyntaxError(`unknown RR type at ${l.line}:${l.column}`);
-            }
-            h.rrtype = l.torc as Rrtype;
-            state = Tokenize.zExpectRdata;
-            break;
-          }
-        case Tokenize.zExpectRdata:
-          {
-            if (l.value !== Tokenize.zBlank) {
-              throw new SyntaxError(`expecting blank at ${l.line}:${l.column}`);
-            }
-            return zp.parseRdata(h);
-          }
+          return zp.parseRdata(h);
+        }
       }
     }
 
