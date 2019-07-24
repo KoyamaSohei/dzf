@@ -1,5 +1,5 @@
 import { Rrtype, Class } from './types';
-export { Rrtype, Class };
+export * from './types';
 
 export function isRrtype(t: string) {
   switch (t) {
