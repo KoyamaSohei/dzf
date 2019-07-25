@@ -1,7 +1,7 @@
 import { ZoneLexer, ByteReader } from './lexer';
+import { TTLState, Tokenize, Lex } from './types';
 import {
   RrHeader,
-  TTLState,
   Class,
   Rrtype,
   CNAME,
@@ -12,10 +12,8 @@ import {
   SOA,
   TXT,
   A,
-  Tokenize,
-  Lex,
   RR
-} from './types';
+} from '@dzfu/core';
 
 export class ZoneParser {
   private c: ZoneLexer;
