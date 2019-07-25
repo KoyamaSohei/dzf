@@ -1,6 +1,6 @@
 {
   "name": "dzfu",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "private": true,
   "devDependencies": {
     "lerna": "^3.15.0"
