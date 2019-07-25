@@ -1,10 +1,12 @@
 language: node_js
 node_js:
-- '10'
+  - "10"
 before_install:
-- npm i -g npm
-- npm i -g lerna
-- npm i -g yarn
+  - npm i -g npm
+  - npm i -g lerna
+  - npm i -g yarn
+brefore_deploy:
+  - yarn build
 deploy:
   provider: npm
   email: koyamaso0309@gmail.com
