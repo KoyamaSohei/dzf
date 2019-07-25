@@ -139,6 +139,11 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
+"@dzfu/parser@^0.0.2":
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/@dzfu/parser/-/parser-0.0.2.tgz#2a1be8b98700f813543f5dcd4870dfb477b438e0"
+  integrity sha512-m0DTeGWgk42rgADOVW8aCEX4ShJXGVDGNfaJK2yr5IpokOVz0EyF0SaTyvnCi88I6sxJ8E/qhZr3gr7BylA1zg==
+
 "@evocateur/libnpmaccess@^3.1.0":
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/@evocateur/libnpmaccess/-/libnpmaccess-3.1.0.tgz#e546ee4e4bedca54ed9303948ec54c985cec33e4"
