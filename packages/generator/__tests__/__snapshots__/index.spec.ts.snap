@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`generate file multipie RRs 1`] = `
+"example1.com.	3600	IN	SOA	ns.example1.com.	root.example1.com.	(
+	20190101
+	3600
+	3600
+	1209600
+	3600
+)
+example1.com.	3600	IN	NS	ns.example1.com.
+example1.com.	3600	IN	NS	ns2.example1.com.
+localhost.example1.com.	3600	IN	A	127.0.0.1
+ns.example1.com.	3600	IN	A	192.1.2.2
+ns2.example1.com.	3600	IN	A	192.1.2.3
+bug.example1.com.	3600	IN	A	192.249.249.1
+dog.example1.com.	3600	IN	A	192.249.249.2
+cat.example1.com.	3600	IN	A	192.249.249.3
+shark.example1.com.	3600	IN	A	192.249.249.4
+foo.example1.com.	3600	IN	CNAME	example2.com.
+bar.example1.com.	3600	IN	CNAME	foo.example2.com.
+"
+`;
