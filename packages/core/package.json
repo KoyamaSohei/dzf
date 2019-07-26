@@ -10,7 +10,7 @@
     "zonefine"
   ],
   "types": "lib/index.d.ts",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "author": "KoyamaSohei <koyamaso0309@gmail.com>",
   "license": "MIT",
   "main": "lib/core.umd.js",
@@ -23,7 +23,7 @@
     "lib"
   ],
   "scripts": {
-    "build": "rollup -c rollup.config.js && typedoc --out docs --target es6 --theme minimal --mode file src",
+    "build": "rollup -c rollup.config.js",
     "test": "jest --coverage --silent=false"
   },
   "devDependencies": {
