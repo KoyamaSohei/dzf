@@ -11,7 +11,7 @@
     "parser"
   ],
   "types": "lib/index.d.ts",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "author": "KoyamaSohei <koyamaso0309@gmail.com>",
   "license": "MIT",
   "main": "lib/parser.umd.js",
