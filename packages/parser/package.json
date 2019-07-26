@@ -45,6 +45,6 @@
     "typescript": "^3.5.2"
   },
   "dependencies": {
-    "@dzfu/core": "^0.0.5"
+    "@dzfu/core": "^0.0.8"
   }
 }
