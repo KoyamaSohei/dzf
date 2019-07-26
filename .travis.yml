@@ -10,11 +10,11 @@ install:
   - yarn build
 brefore_deploy:
   - yarn build
+  - - echo "//registry.npmjs.org/:_authToken=\${NPM_AUTH_TOKEN}" >> $HOME/.npmrc 2> /dev/null
 deploy:
-  provider: npm
-  email: koyamaso0309@gmail.com
-  api_key:
-    secure: is1xHyz902TJPIWy5h8UjezFJjfB6v7dFjAIg7OxR+EWjv/ihYEC3Z/5mJibflPcNLjmCyTd6TMLY/wHToZsIz0kGyfIo4QEV2HUN05nBKKOqCzKqh8+Mll2rGdNnw9b82cuge/KxVgkD6vzmZ+KKNgAxpRfZr2G2FgW3D5HtA2wNaeEZ7KnwZY3aEhHo22f3alxo69N15GmQKtfGgMrMjHr+k5p1CGXu0ptxLU7a9k3qE6zNCfiHId+RUIZBLDROs1fQpGhRbOjjeXw29H/2C836XT9Arwnlwv/Z3+JgJXVylTvB9+8eKAxy6Uta8CZy757KeUHpW9RyiU2wDYfo7PrnvqqtvJOTADAZPQEm5nVRq38vEnyXG3mqzTC7ers1r36Lq7r3+xs8EPcrItFXx5eUWManbb4OU9AopWy+5Sye4By95lQmDzLj91XQg2KlTrZHszSPXsEQR5Z/XTs1EV0AWN/o1BNp/AukTAoxIx+6uUYk90BmyiSlWiGs4d1EJaU7jRD+MrzR1tF3N6cKvhkImAe9EFtZYGFYB6G6uvTtLdLfm6tAQQg1pukqm5fuydL5STedQZg4zeSuUCq8pnLMLNwohrUlcs37CiNiFJiBbnU9yZllD9zQP39GWYyQr6jXd43x4a+CYySQcxDVfprywONeDNhzbmMQQtbDSU=
+  provider: script
+  script:
+    - yarn publish
   on:
     branch: master
     tags: true
