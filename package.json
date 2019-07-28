@@ -11,6 +11,6 @@
   "scripts": {
     "test": "lerna run test",
     "build": "lerna run build",
-    "publish": "lerna publish"
+    "lerna:publish": "lerna publish from-git"
   }
 }

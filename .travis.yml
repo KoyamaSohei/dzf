@@ -14,7 +14,7 @@ brefore_deploy:
 deploy:
   provider: script
   script:
-    - yarn publish
+    - yarn lerna:publish
   on:
     branch: master
     tags: true
