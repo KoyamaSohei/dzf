@@ -1,20 +1,21 @@
 {
-  "name": "@dzfu/core",
-  "description": "dns zone file core",
+  "name": "@dzfu/generator",
+  "description": "dns zone file generator",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/KoyamaSohei/dzfu.git"
   },
   "keywords": [
     "dns",
-    "zonefine"
+    "zonefine",
+    "generator"
   ],
   "types": "lib/index.d.ts",
   "version": "0.1.0",
   "author": "KoyamaSohei <koyamaso0309@gmail.com>",
   "license": "MIT",
-  "main": "lib/core.umd.js",
-  "module": "lib/core.es5.js",
+  "main": "lib/generator.umd.js",
+  "module": "lib/generator.es5.js",
   "directories": {
     "lib": "lib",
     "test": "__tests__"
@@ -42,5 +43,9 @@
     "rollup-plugin-typescript2": "^0.21.2",
     "ts-jest": "^24.0.2",
     "typescript": "^3.5.2"
+  },
+  "dependencies": {
+    "@dzfu/core": "^0.1.0",
+    "@dzfu/parser": "^0.1.0"
   }
 }

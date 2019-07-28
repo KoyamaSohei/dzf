@@ -1,0 +1,10 @@
+{
+  "extends": "../../../tsconfig.json",
+  "target": "es6",
+  "module": "commonjs",
+  // "isolatedModules": true,               /* Transpile each file as a separate module (similar to 'ts.transpileModule'). */
+  /* Strict Type-Checking Options */
+  "strict": true,
+  "resolveJsonModule": true,
+  "esModuleInterop": true
+}

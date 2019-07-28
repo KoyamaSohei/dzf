@@ -52,24 +52,24 @@ console.log(rrs);
 /**
 Array [
   Object {
-    "expire": 1209600,
     "class": 0,
-    "name": "example1.com.",
-    "rrtype": 5,
-    "ttl": 3600,
+    "expire": 1209600,
     "mbox": "root.example1.com.",
     "minttl": 3600,
+    "name": "example1.com.",
     "ns": "ns.example1.com.",
     "refresh": 3600,
     "retry": 3600,
+    "rrtype": 5,
     "serial": 20190101,
+    "ttl": 3600,
   },
   Object {
     "class": 0,
     "name": "example1.com.",
+    "ns": "ns.example1.com.",
     "rrtype": 3,
     "ttl": 3600,
-    "ns": "ns.example1.com.",
   },
 
   ...,
@@ -78,8 +78,8 @@ Array [
     "class": 0,
     "name": "bar.example1.com.",
     "rrtype": 0,
-    "ttl": 3600,
     "target": "foo.example2.com.",
+    "ttl": 3600,
   },
 ]
 */
