@@ -14,7 +14,8 @@ yarn add @dzfu/parser
 ## Usage
 
 ```ts
-import { parseZone, RR } from "@dzfu/parser";
+import { RR } from "@dzfu/core";
+import { parseZone } from "@dzfu/parser";
 
 const text = `
 $TTL  3600
