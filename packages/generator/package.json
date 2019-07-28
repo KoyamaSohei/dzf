@@ -11,7 +11,7 @@
     "generator"
   ],
   "types": "lib/index.d.ts",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "author": "KoyamaSohei <koyamaso0309@gmail.com>",
   "license": "MIT",
   "main": "lib/generator.umd.js",
@@ -45,7 +45,7 @@
     "typescript": "^3.5.2"
   },
   "dependencies": {
-    "@dzfu/core": "^0.0.8",
-    "@dzfu/parser": "^0.0.8"
+    "@dzfu/core": "^0.0.9",
+    "@dzfu/parser": "^0.0.9"
   }
 }
