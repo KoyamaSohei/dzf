@@ -7,11 +7,11 @@
   },
   "keywords": [
     "dns",
-    "zonefine",
+    "zonefile",
     "generator"
   ],
   "types": "lib/index.d.ts",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "author": "KoyamaSohei <koyamaso0309@gmail.com>",
   "license": "MIT",
   "main": "lib/generator.umd.js",
@@ -45,7 +45,7 @@
     "typescript": "^3.5.2"
   },
   "dependencies": {
-    "@dzfu/core": "^0.1.2",
-    "@dzfu/parser": "^0.1.2"
+    "@dzfu/core": "^0.1.3",
+    "@dzfu/parser": "^0.1.3"
   }
 }
