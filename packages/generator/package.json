@@ -7,7 +7,7 @@
   },
   "keywords": [
     "dns",
-    "zonefine",
+    "zonefile",
     "generator"
   ],
   "types": "lib/index.d.ts",
