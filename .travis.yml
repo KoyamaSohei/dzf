@@ -8,7 +8,7 @@ before_install:
 install:
   - lerna bootstrap
   - yarn build
-brefore_deploy:
+before_deploy:
   - yarn build
   - echo "//registry.npmjs.org/:_authToken=\${NPM_AUTH_TOKEN}" >> $HOME/.npmrc 2> /dev/null
   - npm whoami
