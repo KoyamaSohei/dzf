@@ -10,7 +10,8 @@ install:
   - yarn build
 brefore_deploy:
   - yarn build
-  - - echo "//registry.npmjs.org/:_authToken=\${NPM_AUTH_TOKEN}" >> $HOME/.npmrc 2> /dev/null
+  - echo "//registry.npmjs.org/:_authToken=\${NPM_AUTH_TOKEN}" >> $HOME/.npmrc 2> /dev/null
+  - npm whoami
 deploy:
   provider: script
   script:
