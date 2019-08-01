@@ -18,5 +18,4 @@ deploy:
     - yarn lerna:publish
   on:
     branch: master
-    tags: true
     repo: KoyamaSohei/dzfu
